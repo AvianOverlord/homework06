@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <title>Weather Station</title>
+</head>
+<body>
+    <!--Titlebar-->
+    <div></div>
+
+    <!--Search section and list-->
+    <div>
+        <form>
+            <label for="searchBar">Search for a city</label>
+            <input type="text" id="searchBar" name="searchBar">
+            <button type="button" id="searchButton">Search</button>
+        </form>
+        <div id="cityListHolder"></div>
+    </div>
+
+    <!--Main Display-->
+    <div class="mainDisplay">
+        <div class="card currentCard hidden">
+            <div class="card-body">
+                <h1 class="card-title currentCityName"></h1>
+                <img class="mainIcon">
+                <div class="card-text">
+                    <p>Temperature: <span class="tempDisplay"></span></p>
+                    <p>Humidity: <span class="humidDisplay"></span></p>
+                    <p>Wind Speed: <span class="windDisplay"></span></p>
+                    <p>UV Index: <span class="uvDisplay"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="futureCardHolder">
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/script.js"></script>
+</body>
+</html>
