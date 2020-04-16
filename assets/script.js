@@ -11,7 +11,11 @@ var lastCity;
 //Check localStorage
 if(localStorage.cityList != null)
 {
-    cityList = JSON.parse(localStorage. cityList);
+    oldCityList = JSON.parse(localStorage.cityList);
+    for(var i =0; i < oldCityList.length; i++)
+    {
+        addCity(oldCityList[i]);
+    }
 }
 
 if(localStorage.lastCity != null)
@@ -52,7 +56,7 @@ function addCity(cityName)
     {
         cityList.push(cityName);
         cityListString = JSON.stringify(cityList);
-        localStorage.setItem(cityList, cityListString);
+        localStorage.setItem('cityList', cityListString);
         
         var newButton = $("<button>");
         //Add classes here
