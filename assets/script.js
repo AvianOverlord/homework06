@@ -72,52 +72,79 @@ function displayCity(cityName)
       url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + API,
       method: "GET"   
     }).then(function(currentData) {
+        console.log(currentData);
         $.ajax({
             url: "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName +"&appid=" + API,
             method: "GET"
         }).then(function (forecastData) {
-            console.log(currentData);
             console.log(forecastData);
-            $(".currentCityName").text(cityName);
+            var lat = currentData.coord.lat;
+            var lon = currentData.coord.lon;
+            $.ajax({
+                url:  "http://api.openweathermap.org/data/2.5/uvi?appid=" + API + "&lat=" + lat + "&lon=" + lon,
+                method: "GET"
+            }).then(function(uvData){
+                console.log(uvData);
 
-            var noonArray = forecastData.list.filter(checkNoon);
-            for(var i = 0; i < 6; i++)
-            {
+                $(".currentCityName").text(cityName);
+                lastCity = cityName;
+                localStorage.setItem("lastCity",JSON.stringify(lastCity));
+
+                var noonArray = forecastData.list.filter(checkNoon);
+
                 var temperature;
                 var humidity;
                 var windSpeed;
                 var UVindex;
-                var date;
-                if(i===0) //Uses today's data
+
+                var temperatureK = currentData.main.temp;
+                temperature = ((temperatureK - 273.15)*1.8 + 32).toFixed(2);
+                humidity = currentData.main.humidity;
+                windSpeed = currentData.wind.speed;
+                UVindex = uvData.value;
+
+                $(".tempDisplay").text(temperature + " F");
+                $(".humidDisplay").text(humidity);
+                $(".windDisplay").text(windSpeed + " mph");
+                $(".uvDisplay").text(UVindex);
+
+                for(var i = 0; i < 5; i++)
                 {
-                    console.log("Breakpoint 0");
-                    var temperatureK = currentData.main.temp;
-                    temperature = (temperatureK - 273.15)*1.8 + 32;
-                    humidity = currentData.main.humidity;
-                    windSpeed = currentData.wind.speed;
-                }
-                else
-                {
-                    console.log("Breakpoint 1");
-                    var dayData = noonArray[i-1];
-                    var temperatureK = dayData.main.temp;
-                    temperature = (temperatureK - 273.15)*1.8 + 32;
+                    var date;
+                    var dayData = noonArray[i];
+                    temperatureK = dayData.main.temp;
+                    temperature = ((temperatureK - 273.15)*1.8 + 32).toFixed(2);
                     humidity = dayData.main.humidity;
-                    windSpeed = dayData.wind.speed;
+                    windSpeed = dayData.wind.speed;                    
                     date = dayData.dt_txt.slice(0,10);
+
+                    var newCard = $("<div>");
+                    var newCardBody = $("<div>");
+                    var newCardTitle = $("<h4>");
+                    var newCardText = $("<div>");
+                    var newCardTemp = $("<p>");
+                    var newCardHumid = $("<p>");
+                    var newCardImg = $("<img>");
+
+                    newCard.addClass("card");
+                    newCardBody.addClass("card-body");
+                    newCardTitle.addClass("card-title");
+                    newCardText.addClass("card-text");
+
+                    newCard.append(newCardBody);
+                    newCardBody.append(newCardTitle);
+                    newCardBody.append(newCardText);
+                    newCardBody.append(newCardImg);
+                    newCardText.append(newCardTemp);
+                    newCardText.append(newCardHumid);
+
+                    newCardTitle.text(date);
+                    newCardTemp.text("Temperature: " + temperature + " F");
+                    newCardHumid.text("Humidity: " + humidity);
+
+                    $(".futureCardHolder").append(newCard);
                 }
-                console.log(".displayCard[value|"+ i + "]");
-                var targetCard = $(".displayCard[value|"+ i + "]");
-                console.log("Breakpoint 2");
-                console.log(targetCard);
-                $(targetCard + " .tempDisplay").text(temperature + " &#8457;");
-                $(targetCard + " .humidDisplay").text(humidity);
-                $(targetCard + " .windDisplay").text(windSpeed + " mph");
-                if(i > 0)
-                {
-                    $(targetCard + " .cardDate").text(date);
-                }
-            }
+            })
         })
     });
     $(".currentCard").removeClass("hidden");
