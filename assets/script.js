@@ -1,7 +1,4 @@
 //Starting variables
-var icons = [
-    sunny = {name:"sunny", src:""}
-];
 var API = "a6a8f6498afb54f12b3b41bf7b58a806";
 var cityList = [];
 var lastCity;
@@ -96,17 +93,20 @@ function displayCity(cityName)
                 var humidity;
                 var windSpeed;
                 var UVindex;
+                var mainIcon;
 
                 var temperatureK = currentData.main.temp;
                 temperature = ((temperatureK - 273.15)*1.8 + 32).toFixed(2);
                 humidity = currentData.main.humidity;
                 windSpeed = currentData.wind.speed;
                 UVindex = uvData.value;
+                mainIcon = "http://openweathermap.org/img/wn/" + currentData.weather[0].icon +"@2x.png";
 
                 $(".tempDisplay").text(temperature + " F");
                 $(".humidDisplay").text(humidity);
                 $(".windDisplay").text(windSpeed + " mph");
                 $(".uvDisplay").text(UVindex);
+                $(".displayIcon").attr("src",mainIcon);
 
                 for(var i = 0; i < 5; i++)
                 {
@@ -117,6 +117,7 @@ function displayCity(cityName)
                     humidity = dayData.main.humidity;
                     windSpeed = dayData.wind.speed;                    
                     date = dayData.dt_txt.slice(0,10);
+                    var weatherIcon = "http://openweathermap.org/img/wn/" + noonArray[i].weather[0].icon +".png";
 
                     var newCard = $("<div>");
                     var newCardBody = $("<div>");
@@ -133,14 +134,15 @@ function displayCity(cityName)
 
                     newCard.append(newCardBody);
                     newCardBody.append(newCardTitle);
-                    newCardBody.append(newCardText);
                     newCardBody.append(newCardImg);
+                    newCardBody.append(newCardText);
                     newCardText.append(newCardTemp);
                     newCardText.append(newCardHumid);
 
                     newCardTitle.text(date);
                     newCardTemp.text("Temperature: " + temperature + " F");
                     newCardHumid.text("Humidity: " + humidity);
+                    newCardImg.attr("src",weatherIcon);
 
                     $(".futureCardHolder").append(newCard);
                 }
