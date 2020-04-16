@@ -11,7 +11,7 @@ var lastCity;
 //Check localStorage
 if(localStorage.cityList != null)
 {
-    cityList = JSON.parse(localStorage.cityList);
+    cityList = JSON.parse(localStorage. cityList);
 }
 
 if(localStorage.lastCity != null)
@@ -21,12 +21,12 @@ if(localStorage.lastCity != null)
 }
 
 //Event listeners
-$("#searchButton").on("click","button",citySearch);
-$("cityListHolder").on("click",cityChoose);
+$("#searchButton").on("click", citySearch);
+$("#cityListHolder").on("click", "button", cityChoose);
 
 
 //Functions
-citySearch()
+function citySearch()
 {
     var input = $("#searchBar").val();
     if(input === "")
@@ -37,12 +37,12 @@ citySearch()
     addCity(input);
 }
 
-cityChoose()
+function cityChoose()
 {
     displayCity($(this).val());
 }
 
-addCity(cityName)
+function addCity(cityName)
 {
     if(cityList.indexOf(cityName) !== -1)
     {
@@ -52,7 +52,7 @@ addCity(cityName)
     {
         cityList.push(cityName);
         cityListString = JSON.stringify(cityList);
-        localStorage.cityList.setItem(cityList, cityListString);
+        localStorage.setItem(cityList, cityListString);
         
         var newButton = $("<button>");
         //Add classes here
@@ -62,7 +62,7 @@ addCity(cityName)
     }
 }
 
-displayCity(cityName)
+function displayCity(cityName)
 {
     $(".currentCard").removeClass("hidden");
 }
