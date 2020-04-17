@@ -86,7 +86,7 @@ function displayCity(cityName)
             var lat = currentData.coord.lat;
             var lon = currentData.coord.lon;
             $.ajax({
-                url:  "http://api.openweathermap.org/data/2.5/uvi?appid=" + API + "&lat=" + lat + "&lon=" + lon,
+                url:  "https://api.openweathermap.org/data/2.5/uvi?appid=" + API + "&lat=" + lat + "&lon=" + lon,
                 method: "GET"
             }).then(function(uvData){
                 console.log(uvData);
