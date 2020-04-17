@@ -4,40 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="assets/style.css">
     <title>Weather Station</title>
 </head>
 <body>
     <!--Titlebar-->
-    <div></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <h1>Weather Station</h1>
+    </nav>
 
-    <!--Search section and list-->
-    <div>
-        <form>
-            <label for="searchBar">Search for a city</label>
-            <input type="text" id="searchBar" name="searchBar">
-            <button type="button" id="searchButton">Search</button>
-        </form>
-        <div id="cityListHolder"></div>
-    </div>
+    <div class="container">
+        <div class="row">
+            <!--Search section and list-->
+            <div class="col-3">
+                <form class="form">
+                    <div class="container card">
+                        <label for="searchBar">Search for a city:</label>
+                        <input type="text" class="col-7 inline" id="searchBar" name="searchBar">
+                        <button type="button" class="col-5 inline" id="searchButton">Search</button>
+                    </div>
+                </form>
 
-    <!--Main Display-->
-    <div class="mainDisplay">
-        <div class="card currentCard hidden">
-            <div class="card-body displayCard" value=0>
-                <h1 class="card-title currentCityName"></h1>
-                <img class="displayIcon">
-                <div class="card-text">
-                    <p>Temperature: <span class="tempDisplay"></span></p>
-                    <p>Humidity: <span class="humidDisplay"></span></p>
-                    <p>Wind Speed: <span class="windDisplay"></span></p>
-                    <p>UV Index: <span class="uvDisplay"></span></p>
+                <div id="cityListHolder" class="container"></div>
+            </div>
+
+            <!--Main Display-->
+            <div class="mainDisplay col-9">
+                <div class="container">
+                    <div class="row">
+                        <div class="card currentCard bg-info hidden col-12">
+                            <div class="card-body displayCard" value=0>
+                                <h1 class="card-title currentCityName inline"> <span></span></h1>
+                                <img class="displayIcon inline">
+                                <div class="card-text">
+                                    <p>Temperature: <span class="tempDisplay"></span></p>
+                                    <p>Humidity: <span class="humidDisplay"></span></p>
+                                    <p>Wind Speed: <span class="windDisplay"></span></p>
+                                    <p>UV Index: <span class="uvDisplay"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="futureCardHolder hidden row">
+
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="futureCardHolder hidden">
-
         </div>
     </div>
 

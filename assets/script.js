@@ -55,11 +55,19 @@ function addCity(cityName)
         cityListString = JSON.stringify(cityList);
         localStorage.setItem('cityList', cityListString);
         
+        var newRow = $("<div>");
+        newRow.addClass("row");
         var newButton = $("<button>");
-        //Add classes here
+
+        newButton.addClass("btn");
+        newButton.addClass("btn-light");
+        newButton.addClass("city-button");
+        newButton.addClass("col-12");
+
         newButton.text(cityName);
         newButton.val(cityName);
-        $("#cityListHolder").append(newButton);
+        newRow.append(newButton)
+        $("#cityListHolder").append(newRow);
     }
 }
 
@@ -84,6 +92,7 @@ function displayCity(cityName)
                 console.log(uvData);
 
                 $(".currentCityName").text(cityName);
+                $(".futureCardHolder").empty();
                 lastCity = cityName;
                 localStorage.setItem("lastCity",JSON.stringify(lastCity));
 
@@ -100,6 +109,20 @@ function displayCity(cityName)
                 humidity = currentData.main.humidity;
                 windSpeed = currentData.wind.speed;
                 UVindex = uvData.value;
+
+                if(UVindex <= 2)
+                {
+                    $(".uvDisplay").addClass("bg-success");
+                }
+                else if(UVindex <= 5)
+                {
+                    $(".uvDisplay").addClass("bg-warning");
+                }
+                else
+                {
+                    $(".uvDisplay").addClass("bg-danger");
+                }
+
                 mainIcon = "http://openweathermap.org/img/wn/" + currentData.weather[0].icon +"@2x.png";
 
                 $(".tempDisplay").text(temperature + " F");
@@ -128,6 +151,9 @@ function displayCity(cityName)
                     var newCardImg = $("<img>");
 
                     newCard.addClass("card");
+                    newCard.addClass("displayCard");
+                    newCard.addClass("w-25");
+                    newCard.addClass("bg-info");
                     newCardBody.addClass("card-body");
                     newCardTitle.addClass("card-title");
                     newCardText.addClass("card-text");

@@ -1,4 +1,25 @@
+body
+{
+    background-color: grey;
+}
+
 .hidden
 {
     display: none;
+}
+
+.city-button
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.inline
+{
+    display: inline;
+}
+
+.displayCard
+{
+    margin: 10px;
 }
